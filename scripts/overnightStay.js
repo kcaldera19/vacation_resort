@@ -11,18 +11,18 @@ console.log("works");
 
 // * getRoomRate(estimateForm.checkInDate.value,estimateForm.roomType.value);
 
-window.onload = function(){
-    let estimateForm =document.querySelector("#estimateStayForm");
-    estimateForm.addEventListener("submit",estimateStay);
+window.onload = function () {
+    let estimateForm = document.querySelector("#estimateStayForm");
+    estimateForm.addEventListener("submit", estimateStay);
 
 }
-function estimateStay(event){
- 
-    
+function estimateStay(event) {
+
+
     event.preventDefault();
     let estimateForm = event.target;
 
-    
+
 
     let numberOfNights = Number(estimateForm.numberOfNights.value);
     let CheckInDate = estimateForm.checkInDate.value;
@@ -32,28 +32,41 @@ function estimateStay(event){
 
     console.log(estimateForm.checkInDate.value)
 }
-function getRoomRate(checkInDate,roomType){
+function getRoomRate(checkInDate, roomType) {
     let outSeasonSuite = 250;
     let seasonSuite = 350;
-    let outSeasonQueenandKing = 150;
-    let seasonQueenAndKing = 250;
-    let tax = 12/100;
+    let outSeasonQueenOrKing = 150;
+    let seasonQueenOrKing = 250;
+    let tax = 12 / 100;
 
     let checkInMonth = new Date(checkInDate).getMonth();
     // june-August
-    let inSeason =[5,6,7]; 
-    
-    
-    
-    if (inSeason === )
+    let inSeason = [5, 6, 7];
+    inSeason = inSeason.includes(checkInMonth);
 
-    if(roomType === "suite"){
 
-        return 150;
+
+
+
+    if (roomType === "suite") {
+        if (inSeason) {
+            return seasonSuite;
+
+        } else {
+            return outSeasonSuite;
+        }
+    }else if (roomType === "queen" || roomType === "king"){
+        if (inSeason) {
+            return seasonQueenOrKing;
+
+        } else {
+            return outSeasonQueenOrKing;
+        }
     }
-    return 150
-    // if(roomType === "")
     
+
+    // if(roomType === "")
+
 
 
 
