@@ -29,8 +29,12 @@ function estimateStay(event) {
     let roomType = estimateForm.roomType.value;
     console.log(roomType);
     console.log("you submitted the form");
+    let roomRate = getRoomRate(checkInDate,roomType);
+    console.log("RoomRate:",roomRate);
 
-    console.log(estimateForm.checkInDate.value)
+    let totalCost = roomRate * numberOfNights;
+    console.log("total cost:",totalCost);
+    // console.log(estimateForm.checkInDate.value)
 }
 function getRoomRate(checkInDate, roomType) {
     let outSeasonSuite = 250;
@@ -48,14 +52,14 @@ function getRoomRate(checkInDate, roomType) {
 
 
 
-    if (roomType === "suite") {
+    if (estimateForm.roomType.value === "suite") {
         if (inSeason) {
             return seasonSuite;
 
         } else {
             return outSeasonSuite;
         }
-    }else if (roomType === "queen" || roomType === "king"){
+    } else if (estimateForm.roomType.value === "queen" || roomType === "king") {
         if (inSeason) {
             return seasonQueenOrKing;
 
@@ -64,8 +68,20 @@ function getRoomRate(checkInDate, roomType) {
         }
     }
     
+    // dicount
+    let dicountAmount = 0;
+    if(theForm.dicount.value === "yes"){
+        
+    }if(estimateForm.aaa.value.checked){
+        
 
-    // if(roomType === "")
+    }if(estimateForm.military.checked){
+
+    }
+    
+
+
+    
 
 
 
