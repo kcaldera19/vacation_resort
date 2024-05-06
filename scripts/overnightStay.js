@@ -20,21 +20,11 @@ function estimateStay(event) {
 
 
     event.preventDefault();
-    let estimateForm = event.target;
 
+    let theForm = event.target;
+    let roomtype = 0;
+    let totalRoomPrice = roomtype  * Number(theForm.seasonQueenOrKing.value);
 
-
-    let numberOfNights = Number(estimateForm.numberOfNights.value);
-    let CheckInDate = estimateForm.checkInDate.value;
-    let roomType = estimateForm.roomType.value;
-    console.log(roomType);
-    console.log("you submitted the form");
-    let roomRate = getRoomRate(checkInDate,roomType);
-    console.log("RoomRate:",roomRate);
-
-    let totalCost = roomRate * numberOfNights;
-    console.log("total cost:",totalCost);
-    // console.log(estimateForm.checkInDate.value)
 }
 function getRoomRate(checkInDate, roomType) {
     let outSeasonSuite = 250;
@@ -49,11 +39,8 @@ function getRoomRate(checkInDate, roomType) {
     inSeason = inSeason.includes(checkInMonth);
 
 
-
-
-
     if (estimateForm.roomType.value === "suite") {
-        if (inSeason) {
+    if (inSeason) {
             return seasonSuite;
 
         } else {
@@ -70,8 +57,8 @@ function getRoomRate(checkInDate, roomType) {
     
     // dicount
     let dicountAmount = 0;
-    if(theForm.dicount.value === "yes"){
-        
+    if(theForm.dicount.value === "aaa"){
+        dicountAmount
     }if(estimateForm.aaa.value.checked){
         
 
