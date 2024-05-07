@@ -31,19 +31,19 @@ function estimateStay(event) {
     let theForm = event.target;
     let checkInDate = theForm.checkInDate.value;
     let roomType = theForm.roomType.value;
+    let numberOfNights = parseInt(theForm.numberOfNights.value);
 
-    let totalAmount = getRoomRate(checkInDate,roomType,theForm.aaa.checked,theForm.military.checked);
+    let totalAmount = getRoomRate(checkInDate,roomType,numberOfNights);
     console.log(`total room rate for ${roomType} on ${checkInDate} $${totalAmount}`);
 }
-function getRoomRate(checkInDate, roomType, discount) {
+function getRoomRate(checkInDate, roomType, numberOfNights) {
     let outSeasonSuite = 250;
     let seasonSuite = 350;
     let outSeasonQueenOrKing = 150;
     let seasonQueenOrKing = 250;
     let tax = 12 / 100;
-    let numberOfNights = 0;
-    numberOfNights = numberOfNights * roomType;
-
+    
+    //to
     let checkInMonth = new Date(checkInDate).getMonth();
     // june-August
     let inSeason = [5, 6, 7];
@@ -54,6 +54,7 @@ function getRoomRate(checkInDate, roomType, discount) {
 
         if (inSeason) {
             roomRate = seasonSuite;
+            
 
         } else {
             roomRate = outSeasonSuite;
@@ -69,6 +70,9 @@ function getRoomRate(checkInDate, roomType, discount) {
         roomRate = 0;
 
     }
+    roomRate *= numberOfNights;
+   
+
 
     // dicount
     let discountAmount = 0;
@@ -82,8 +86,10 @@ function getRoomRate(checkInDate, roomType, discount) {
     roomRate -= discountAmount;
     let taxes = roomRate * tax;
     let totalAmount = roomRate + taxes;
-    totalAmount = roomType * numberOfNights 
+    
     return totalAmount;
+    
+    
 
     
     
