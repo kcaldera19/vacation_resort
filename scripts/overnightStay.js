@@ -20,7 +20,7 @@ console.log("works");
 
 window.onload = function () {
     let estimateForm = document.querySelector("#estimateStayForm");
-    estimateForm.addEventListener("submit", estimateStay);
+    theForm.addEventListener("submit", estimateStay);
 
 }
 function estimateStay(event) {
@@ -46,7 +46,7 @@ function getRoomRate(checkInDate, roomType) {
     inSeason = inSeason.includes(checkInMonth);
 
     let roomRate;
-    if (roomType === "suite") {
+    if (theForm.roomType.value === "suite") {
 
         if (inSeason) {
             roomRate = seasonSuite;
@@ -54,7 +54,7 @@ function getRoomRate(checkInDate, roomType) {
         } else {
             roomRate = outSeasonSuite;
         }
-    } else if (estimateForm.roomType.value === "queen" || roomType === "king") {
+    } else if (theForm.roomType.value === "queen" || roomType === "king") {
         if (inSeason) {
             roomRate = seasonQueenOrKing;
 
@@ -77,6 +77,8 @@ function getRoomRate(checkInDate, roomType) {
         return roomRate;
 
     }
+
+
 
 
 
