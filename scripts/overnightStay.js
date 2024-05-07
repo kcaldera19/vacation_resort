@@ -33,15 +33,16 @@ function estimateStay(event) {
     let roomType = theForm.roomType.value;
 
     let totalAmount = getRoomRate(checkInDate,roomType,theForm.aaa.checked,theForm.military.checked);
-    console.log(`total room rate for${roomType} on ${checkInDate}: $${totalAmount}`);
+    console.log(`total room rate for ${roomType} on ${checkInDate} $${totalAmount}`);
 }
-function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
+function getRoomRate(checkInDate, roomType, discount) {
     let outSeasonSuite = 250;
     let seasonSuite = 350;
     let outSeasonQueenOrKing = 150;
     let seasonQueenOrKing = 250;
     let tax = 12 / 100;
     let numberOfNights = 0;
+    numberOfNights = numberOfNights * roomType;
 
     let checkInMonth = new Date(checkInDate).getMonth();
     // june-August
@@ -49,7 +50,7 @@ function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
     inSeason = inSeason.includes(checkInMonth);
 
     let roomRate;
-    if (roomType === "suite") {
+    if (theForm.roomType.value === "suite") {
 
         if (inSeason) {
             roomRate = seasonSuite;
@@ -57,7 +58,7 @@ function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
         } else {
             roomRate = outSeasonSuite;
         }
-    } else if (roomType=== "queen" || roomType === "king") {
+    } else if (theForm.roomType.value === "queen" || theForm.roomType.value === "king") {
         if (inSeason) {
             roomRate = seasonQueenOrKing;
 
@@ -71,9 +72,9 @@ function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
 
     // dicount
     let discountAmount = 0;
-    if (aaaDiscount) {
+    if (theForm.discount.value === "aaa") {
         discountAmount = roomRate * (10 / 100);
-    }else if (militaryDiscount) {
+    }else if (theForm.discount.value === "military") {
         discountAmount = roomRate * (20 / 100);
 
     } 
@@ -81,7 +82,11 @@ function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
     roomRate -= discountAmount;
     let taxes = roomRate * tax;
     let totalAmount = roomRate + taxes;
+    totalAmount = roomType * numberOfNights 
     return totalAmount;
+
+    
+    
    
     // need to fix the multple of the night staying number of night.
 
@@ -90,4 +95,3 @@ function getRoomRate(checkInDate, roomType, aaaDiscount,militaryDiscount) {
 }
 
 
-// } else if (theForm.roomType.value === "queen" || roomType === "king") {
