@@ -16,23 +16,26 @@ console.log("works");
 // veteran or request military pricing, we take 20% off the room rate.
 // Taxes are 12% of the after-discount room cost.
 
-// * getRoomRate(estimateForm.checkInDate.value,estimateForm.roomType.value);
+
 
 window.onload = function () {
-    let estimateForm = document.querySelector("#theForm");
+    let estimateForm = document.querySelector("#estimateForm");
     estimateForm.addEventListener("submit", estimateStay);
 
 }
 function estimateStay(event) {
 
-
+    // prevent from the form to submit
     event.preventDefault();
-
-    let theForm = event.target;
-    let checkInDate = theForm.checkInDate.value;
-    let roomType = theForm.roomType.value;
-    let numberOfNights = parseInt(theForm.numberOfNights.value);
-
+    // event.target refers to the form that was submitted
+    let estimateForm = event.target;
+    // grabs the value in the input field with the checkInDate 
+    let checkInDate = estimateForm.checkInDate.value;
+    // grabs the value in the input field of roomtype
+    let roomType = estimateForm.roomType.value;
+    // used parseInt() to conver from to an interger and stored in variable of number of  Nights.
+    let numberOfNights = parseInt(estimateForm.numberOfNights.value);
+    // total amount of a room based on the checkinDate , roomtyeo, and number of Nights
     let totalAmount = getRoomRate(checkInDate,roomType,numberOfNights);
     console.log(`total room rate for ${roomType} on ${checkInDate} $${totalAmount}`);
 }
@@ -43,14 +46,20 @@ function getRoomRate(checkInDate, roomType, numberOfNights) {
     let seasonQueenOrKing = 250;
     let tax = 12 / 100;
     
-    //to
+    
+    // new date creates a date
+    //gives the number of months from 0-11 based on the checkInDate
+    
     let checkInMonth = new Date(checkInDate).getMonth();
-    // june-August
+    // created a new variable to grabs the specific months form 0-11
     let inSeason = [5, 6, 7];
+    // checks whether the month stored in season is falls within june-august
     inSeason = inSeason.includes(checkInMonth);
 
+    //created variabel for roomRate
     let roomRate;
-    if (theForm.roomType.value === "suite") {
+    // needed to Refactor the if statement below to use a ternary operator
+    if (estimateForm.roomType.value === "suite") {
 
         if (inSeason) {
             roomRate = seasonSuite;
@@ -59,7 +68,9 @@ function getRoomRate(checkInDate, roomType, numberOfNights) {
         } else {
             roomRate = outSeasonSuite;
         }
-    } else if (theForm.roomType.value === "queen" || theForm.roomType.value === "king") {
+            // || means or  created an else if statment for  queen or king
+           
+    } else if (estimateForm.roomType.value === "queen" || theForm.roomType.value === "king") {
         if (inSeason) {
             roomRate = seasonQueenOrKing;
 
@@ -70,19 +81,20 @@ function getRoomRate(checkInDate, roomType, numberOfNights) {
         roomRate = 0;
 
     }
+    // operator performs multiplication on the two operands and assigns the result to the left operand.
     roomRate *= numberOfNights;
    
 
 
-    // dicount
+    // discount
     let discountAmount = 0;
-    if (theForm.discount.value === "aaa") {
+    if (estimateForm.discount.value === "aaa") {
         discountAmount = roomRate * (10 / 100);
-    }else if (theForm.discount.value === "military") {
+    }else if (estimateForm.discount.value === "military") {
         discountAmount = roomRate * (20 / 100);
 
     } 
-
+    // The subtraction assignment (-=) operator performs subtraction on the two operands and assigns the result to the left operand.
     roomRate -= discountAmount;
     let taxes = roomRate * tax;
     let totalAmount = roomRate + taxes;
